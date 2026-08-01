@@ -102,9 +102,10 @@ function ProductSkeleton() {
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: SearchParams
+  searchParams: Promise<SearchParams>
 }) {
-  const { products, total, page, totalPages, categories } = await getProducts(searchParams)
+  const resolvedSearchParams = await searchParams
+  const { products, total, page, totalPages, categories } = await getProducts(resolvedSearchParams)
   const allCategories = await getCategories()
 
   return (
@@ -121,11 +122,11 @@ export default async function ProductsPage({
               </li>
               <li>/</li>
               <li className="text-foreground">Sản phẩm</li>
-              {searchParams.category && (
+              {resolvedSearchParams.category && (
                 <>
                   <li>/</li>
                   <li className="text-foreground">
-                    {categories.find((c) => c.slug === searchParams.category)?.name}
+                    {categories.find((c) => c.slug === resolvedSearchParams.category)?.name}
                   </li>
                 </>
               )}
@@ -142,7 +143,7 @@ export default async function ProductsPage({
                     <Link
                       href="/products"
                       className={`block px-3 py-2 rounded-lg transition-colors ${
-                        !searchParams.category
+                        !resolvedSearchParams.category
                           ? 'bg-primary text-primary-foreground'
                           : 'hover:bg-muted'
                       }`}
@@ -154,7 +155,7 @@ export default async function ProductsPage({
                         key={category.id}
                         href={`/products?category=${category.slug}`}
                         className={`block px-3 py-2 rounded-lg transition-colors ${
-                          searchParams.category === category.slug
+                          resolvedSearchParams.category === category.slug
                             ? 'bg-primary text-primary-foreground'
                             : 'hover:bg-muted'
                         }`}
@@ -173,13 +174,13 @@ export default async function ProductsPage({
                         type="number"
                         placeholder="Từ"
                         className="w-full"
-                        defaultValue={searchParams.minPrice}
+                        defaultValue={resolvedSearchParams.minPrice}
                       />
                       <Input
                         type="number"
                         placeholder="Đến"
                         className="w-full"
-                        defaultValue={searchParams.maxPrice}
+                        defaultValue={resolvedSearchParams.maxPrice}
                       />
                     </div>
                   </div>
@@ -199,14 +200,14 @@ export default async function ProductsPage({
                       placeholder="Tìm kiếm sản phẩm..."
                       className="pl-10"
                       name="search"
-                      defaultValue={searchParams.search}
+                      defaultValue={resolvedSearchParams.search}
                     />
-                    {searchParams.category && (
-                      <input type="hidden" name="category" value={searchParams.category} />
+                    {resolvedSearchParams.category && (
+                      <input type="hidden" name="category" value={resolvedSearchParams.category} />
                     )}
                   </form>
                 </div>
-                <Select defaultValue={searchParams.sort || 'latest'}>
+                <Select defaultValue={resolvedSearchParams.sort || 'latest'}>
                   <SelectTrigger className="w-full sm:w-[180px]">
                     <SelectValue placeholder="Sắp xếp" />
                   </SelectTrigger>
