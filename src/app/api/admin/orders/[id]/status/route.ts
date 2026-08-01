@@ -4,9 +4,10 @@ import { OrderStatus } from '@prisma/client'
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const { status } = await request.json()
 
     if (!Object.values(OrderStatus).includes(status)) {
@@ -14,13 +15,13 @@ export async function PATCH(
     }
 
     await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: { status },
     })
 
     await prisma.orderStatusHistory.create({
       data: {
-        orderId: params.id,
+        orderId: id,
         status,
         note: `Cập nhật trạng thái: ${status}`,
       },
