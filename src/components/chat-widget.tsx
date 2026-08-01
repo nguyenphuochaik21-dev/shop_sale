@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { Messenger, Facebook, Zap, Send, Phone, Mail, MessageCircle } from 'lucide-react'
+import { Facebook, Zap, Send, Phone, Mail, MessageCircle } from 'lucide-react'
 
 const chatOptions = [
   {
-    icon: Messenger,
+    icon: MessageCircle,
     label: 'Messenger',
     href: 'https://m.me/yourpage',
     color: 'bg-blue-500 hover:bg-blue-600',

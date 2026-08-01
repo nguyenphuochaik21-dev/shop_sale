@@ -114,7 +114,7 @@ export default function CheckoutPage() {
             </p>
             <p className="text-sm text-muted-foreground mb-8">
               Chúng tôi đã gửi email xác nhận đơn hàng đến <strong>{formData.customerEmail}</strong>.
-              Bạn có thể theo dõi đơn hàng trong mục "Đơn hàng của tôi".
+              Bạn có thể theo dõi đơn hàng trong mục &quot;Đơn hàng của tôi&quot;.
             </p>
             <div className="flex flex-col gap-3">
               <Button onClick={() => router.push(`/orders?orderNumber=${orderSuccess.orderNumber}`)}>

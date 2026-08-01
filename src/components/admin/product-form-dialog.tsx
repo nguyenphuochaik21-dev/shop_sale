@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { productSchema, type ProductInput } from '@/lib/validations'
 import { Loader2, Upload, X } from 'lucide-react'
+import Image from 'next/image'
 
 interface Category {
   id: string
@@ -206,7 +207,7 @@ export function ProductFormDialog({ open, onClose, product }: ProductFormDialogP
             <div className="grid grid-cols-4 gap-4">
               {images.map((image, index) => (
                 <div key={index} className="relative aspect-square rounded-lg overflow-hidden border">
-                  <img src={image} alt="" className="w-full h-full object-cover" />
+                  <Image src={image} alt="" fill className="object-cover" />
                   <button
                     type="button"
                     onClick={() => removeImage(index)}

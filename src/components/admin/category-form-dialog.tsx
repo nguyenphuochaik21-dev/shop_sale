@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { categorySchema, type CategoryInput } from '@/lib/validations'
 import { Loader2, Upload, X } from 'lucide-react'
+import Image from 'next/image'
 
 interface Category {
   id: string
@@ -151,7 +152,7 @@ export function CategoryFormDialog({ open, onClose, category }: CategoryFormDial
             <div className="flex items-center gap-4">
               {image ? (
                 <div className="relative w-24 h-24 rounded-lg overflow-hidden border">
-                  <img src={image} alt="" className="w-full h-full object-cover" />
+                  <Image src={image} alt="" fill className="object-cover" />
                   <button
                     type="button"
                     onClick={() => setImage(null)}
